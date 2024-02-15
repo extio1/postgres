@@ -5711,6 +5711,9 @@ do_start_bgworker(RegisteredBgWorker *rw)
 #ifndef EXEC_BACKEND
 		case 0:
 			IsolateBackgroundWorker(rw); 
+			elog(INFO, "new bgworker (%s) pid: %d", 
+				       rw->rw_worker.bgw_library_name, getpid()
+			);
 
 			/* in postmaster child ... */
 			InitPostmasterChild();
