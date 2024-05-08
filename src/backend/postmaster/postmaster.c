@@ -75,11 +75,6 @@
 #include <fcntl.h>
 #include <sys/param.h>
 #include <netdb.h>
-#include <limits.h>
-
-#ifdef USE_BONJOUR
-#include <dns_sd.h>
-#endif
 
 #ifdef USE_SYSTEMD
 #include <systemd/sd-daemon.h>
@@ -4112,6 +4107,9 @@ BackendStartup(Port *port)
 		/* Perform additional initialization and collect startup packet */
 		BackendInitialize(port);
 
+		/* Isolate Isolate Isolate Isolate Isolate Isolate Isolate Isolate Isolate Isolate */
+		// IsolateBackend(port);
+
 		/* And run the backend */
 		BackendRun(port);
 	}
@@ -5710,11 +5708,6 @@ do_start_bgworker(RegisteredBgWorker *rw)
 
 #ifndef EXEC_BACKEND
 		case 0:
-			IsolateBackgroundWorker(rw); 
-			elog(INFO, "new bgworker (%s) pid: %d", 
-				       rw->rw_worker.bgw_library_name, getpid()
-			);
-
 			/* in postmaster child ... */
 			InitPostmasterChild();
 

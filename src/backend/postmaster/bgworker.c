@@ -36,6 +36,9 @@
 #include "utils/ps_status.h"
 #include "utils/timeout.h"
 
+/* Original Hook */
+BgworkerJustBeforeMain_hook_type BgworkerJustBeforeMain_hook = NULL;
+
 /*
  * The postmaster's list of registered background workers, in private memory.
  */
@@ -833,8 +836,13 @@ BackgroundWorkerMain(void)
 	 */
 
 	/*
-	 * Now invoke the user-defined worker code
+	 * Now invoke the user-defined worker code, 
+	 * and call special hook before.
 	 */
+
+	if(BgworkerJustBeforeMain_hook){
+		BgworkerJustBeforeMain_hook(MyBgworkerEntry);
+	}
 	entrypt(worker->bgw_main_arg);
 
 	/* ... and if it returns, we're done */

@@ -147,6 +147,13 @@ extern void BackgroundWorkerInitializeConnection(const char *dbname, const char 
 extern void BackgroundWorkerInitializeConnectionByOid(Oid dboid, Oid useroid, uint32 flags);
 
 /*
+ * Hook called just before execution of user defined fucntion.
+ * All standard postmaster initialization are done till this moment.
+ */
+typedef void (*BgworkerJustBeforeMain_hook_type) (BackgroundWorker *ThisBgworkerEntry);
+extern PGDLLIMPORT BgworkerJustBeforeMain_hook_type BgworkerJustBeforeMain_hook;
+
+/*
  * Flags to BackgroundWorkerInitializeConnection et al
  *
  *

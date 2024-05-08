@@ -4,5 +4,6 @@
 #include "postmaster/bgworker_internals.h"
 
 extern int IsolateBackgroundWorker(RegisteredBgWorker *);
+extern int IsolateBackend(Port *);
 
 #endif
